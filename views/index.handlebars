@@ -1,0 +1,70 @@
+
+
+<div id="img_div">
+    <img id='img' src="/assets/img/burger.png" alt="">
+</div>
+
+
+
+<div id="burger_list">
+    <ul class="list">
+        {{#each burgers}}
+            {{#unless devoured}}
+                <li id='ready'>
+                    {{burger_name}}
+                    <button class="eat" data-id="{{this.id}}">Devour</button>
+                </li>
+            {{/unless}}
+            
+        {{/each}}
+    </ul>
+
+    <ul class="list">
+        {{#each burgers }}
+            {{#if devoured}}
+                <li id='devoured'>
+                    {{burger_name}}
+                </li>
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>
+
+
+
+
+<form id="makeBurger" class="buttonSize">
+    <input type="text" name="burger">
+    <button type="submit">Submit</button>
+</form>
+
+<script type="text/javascript">
+
+    $("#makeBurger").on('submit', function(event) {
+        event.preventDefault();
+        let newBurger = {
+            burger: $('#makeBurger [name=burger]').val().trim()
+        };
+
+        $.ajax('/api/burgers', {
+            type: "POST",
+            data: newBurger
+        }).then(function() {
+            console.log('created a new Burger');
+            location.reload();
+        });
+    })
+
+    $(".eat").on('click', function(event) {
+        event.preventDefault();
+        let id = $(this).data("id");
+        console.log("eat: ", id);
+        $.ajax('/api/burgers/' + id, {
+            type: "PUT",
+            data: id
+        }).then(function() {
+            console.log('Devoured Burger: ', id);
+            location.reload();
+        });
+    });
+</script>

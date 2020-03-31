@@ -1,0 +1,28 @@
+
+body {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+#burger_list {
+    display: flex;
+    width: 60%;
+    margin: auto;
+}
+
+.list {
+    width: 50%;
+}
+
+#makeBurger {
+    width: 50%;
+    margin: auto;
+}
+
+#img_div {
+    text-align: center;
+    display: block;
+}
+
